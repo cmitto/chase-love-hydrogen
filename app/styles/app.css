@@ -6,11 +6,93 @@
   --header-height: 64px;
   --color-dark: #000;
   --color-light: #fff;
+  --color-primary: #e60000;
+}
+/* Load the WOFF2 font first (best compression) */
+@font-face {
+  font-family: "Ashven";
+  src: url("/ASVHEN-Italic.woff2") format("woff2"),
+       url("/ASVHEN-Italic.woff") format("woff");
+  font-weight:300;
+  font-style: normal;
+  font-display: swap;
+}
+body{
+  font-family: "Ashven",sans-serif;
 }
 
 img {
   border-radius: 4px;
 }
+/* ========== Persistent Spotify Player ========== */
+.spotify-container {
+  position: fixed;
+  bottom: 2vh;
+  left: 2vh;
+  z-index: 999;
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  width: 400px;
+}
+
+/* Hide iframe when button is clicked */
+.spotify-container.hidden {
+  transform: translateX(-120%); /* Moves the iframe completely offscreen to the right */
+  opacity: 0; /* Makes it fully transparent */
+  pointer-events: none; /* Prevents interactions when hidden */
+}
+
+/* Spotify iframe */
+.spotify-container iframe {
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+}
+
+/* Hide button - Positioned on top of the iframe */
+.hide-spotify-btn {
+  position: absolute;
+  top: 2vh;
+  left: 6vw;
+  transform: translate(-50%, -50%); /* Center the button */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0; /* Initially invisible */
+}
+
+/* Make the button appear when hovered */
+.spotify-container:hover .hide-spotify-btn {
+  opacity: 1;
+}
+
+/* Hover effect for button */
+.hide-spotify-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* Darker on hover */
+}
+.show-spotify-btn {
+  position: fixed;
+  bottom: 7vh;
+  left: 2vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover effect for the show button */
+.show-spotify-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 
 /*
 * --------------------------------------------------
@@ -331,7 +413,78 @@ button.reset:hover:not(:has(> *)) {
 
 /*
 * --------------------------------------------------
-* routes/__index
+* routes/__index (Landing Page)
+* --------------------------------------------------
+*/
+
+/* Full-Screen Background */
+.landing-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+/* Background Video */
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Centered Logo & Content */
+.content {
+  position: absolute;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 4vh;
+}
+
+.logo {
+  width:clamp(250px,60%,600px);
+}
+
+/* Navigation Buttons */
+.nav-buttons {
+  display: grid;
+  gap: 2vh;
+  width: clamp(100px,150px,20vw);
+}
+
+.nav-button {
+  display: inline-block;
+  background-color: var(--color-light);
+  color: black;
+  padding: 4px 3px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in;
+  text-align: center;
+}
+
+.nav-button:hover {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  transform: scale(1.05);
+  text-decoration: none;
+}
+
+
+/*
+* --------------------------------------------------
+* routes/shop
 * --------------------------------------------------
 */
 .featured-collection {

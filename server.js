@@ -36,6 +36,17 @@ export default {
       });
 
       const response = await handleRequest(request);
+      
+      // ✅ Add Content Security Policy (CSP) Headers
+      response.headers.set(
+        "Content-Security-Policy",
+        "default-src 'self' https://cdn.shopify.com https://shopify.com http://localhost:*; " +
+        "frame-src 'self' https://open.spotify.com;"+
+        "style-src 'self' 'unsafe-inline' https://cdn.shopify.com; " +
+        "script-src 'self' 'unsafe-inline' https://cdn.shopify.com;" +
+        "connect-src 'self' https://monorail-edge.shopifysvc.com https://cdn.shopify.com https://shopify.com;"
+      );
+
 
       if (appLoadContext.session.isPending) {
         response.headers.set(

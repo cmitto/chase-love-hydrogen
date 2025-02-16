@@ -1,26 +1,28 @@
 import { Link } from "@remix-run/react";
-//import "../styles/landing.css"; // Import the external CSS file
 
 export const meta = () => {
-  return [{ title: "Welcome | My Store" }];
+  return [{ title: "Welcome | Chase Love Club" }];
 };
 
 export default function LandingPage() {
   return (
     <div className="landing-page">
+      {/* Background Video */}
       <video autoPlay loop muted className="background-video">
-        <source src="/videos/promo.mp4" type="video/mp4" />
+        <source src="../../public/chaselovepromo.mp4" type="video/mp4" />
       </video>
 
-      <div className="overlay"></div>
-
+      {/* Main Content */}
       <div className="content">
-        <img src="/images/logo.png" alt="Logo" className="logo" />
+        {/* Logo */}
+        <img src="../../public/chaselovelogotext.png" alt="Logo" className="logo" />
 
-        <nav>
-          <Link to="/shop" className="nav-button">Enter Store</Link>
-          <Link to="/collections" className="nav-button">All Collections</Link>
-          <Link to="/blogs/news" className="nav-button">News</Link>
+
+        {/* Navigation Buttons */}
+        <nav className="nav-buttons">
+          <Link to="/shop" className="nav-button">Shop</Link>
+          <Link to="/collections" className="nav-button">Lookbook</Link>
+          <Link to="/blogs/news" className="nav-button">Contact</Link>
         </nav>
       </div>
     </div>

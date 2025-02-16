@@ -8,8 +8,10 @@ import {
   useRouteLoaderData,
   ScrollRestoration,
   isRouteErrorResponse,
+  useLocation,
 } from '@remix-run/react';
-import favicon from '~/assets/favicon.svg';
+import {useState} from 'react';
+import favicon from '~/assets/chaselovelogotext.png';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from '~/components/PageLayout';
@@ -143,9 +145,12 @@ function loadDeferredData({context}) {
  * @param {{children?: React.ReactNode}}
  */
 export function Layout({children}) {
+  const location = useLocation();
+  const isLandingPage = location.pathname === '/';
   const nonce = useNonce();
   /** @type {RootLoader} */
   const data = useRouteLoaderData('root');
+  const [isHidden, setIsHidden] = useState(false);
 
   return (
     <html lang="en">
@@ -158,16 +163,41 @@ export function Layout({children}) {
         <Links />
       </head>
       <body>
-        {data ? (
-          <Analytics.Provider
-            cart={data.cart}
-            shop={data.shop}
-            consent={data.consent}
+      {isLandingPage ? (
+        // ✅ Landing page (NO header & footer)
+        <Outlet />
+      ) : (
+        // ✅ All other pages (WITH header & footer)
+        <Analytics.Provider
+          cart={data?.cart}
+          shop={data?.shop}
+          consent={data?.consent}
+        >
+          <PageLayout {...data}>
+            <Outlet />
+          </PageLayout>
+        </Analytics.Provider>
+        )}
+        <div className={`spotify-container ${isHidden ? 'hidden' : ''}`}>
+          <button className="hide-spotify-btn" onClick={() => setIsHidden(!isHidden)}>
+              Hide Music
+            </button>
+          <iframe 
+            style={{borderRadius:"12px" }}
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1FbEwF6cQZ1SdI?utm_source=generator&theme=0"
+            width="60%"
+            height="152"
+            frameBorder="0"
+            allowFullScreen=""
+            allow="autoplay;clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
           >
-            <PageLayout {...data}>{children}</PageLayout>
-          </Analytics.Provider>
-        ) : (
-          children
+          </iframe>
+        </div>
+        {isHidden && (
+          <button className="show-spotify-btn" onClick={() => setIsHidden(false)}>
+            Show Music
+          </button>
         )}
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
