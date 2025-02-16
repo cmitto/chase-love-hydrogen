@@ -11,7 +11,7 @@ export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
   return (
     <header className="header">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
+        <img src="../../public/chaselovelogotext.png" alt="Logo" className="header-logo" />
       </NavLink>
       <HeaderMenu
         menu={menu}
@@ -56,6 +56,7 @@ export function HeaderMenu({
       )}
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
+
 
         // if the url is internal, we strip the domain
         const url =

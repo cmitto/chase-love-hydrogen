@@ -18,6 +18,7 @@ export default {
    * @return {Promise<Response>}
    */
   async fetch(request, env, executionContext) {
+    
     try {
       const appLoadContext = await createAppLoadContext(
         request,

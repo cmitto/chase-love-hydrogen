@@ -15,7 +15,7 @@ export default function LandingPage() {
       {/* Main Content */}
       <div className="content">
         {/* Logo */}
-        <img src="../../public/chaselovelogotext.png" alt="Logo" className="logo" />
+        <img src="../../public/chaselovelogotext.png" alt="Logo" className="landing-logo" />
 
 
         {/* Navigation Buttons */}

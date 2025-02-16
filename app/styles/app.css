@@ -244,7 +244,7 @@ button.reset:hover:not(:has(> *)) {
   background: #fff;
   display: flex;
   height: var(--header-height);
-  padding: 0 1rem;
+  padding: 0 ;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -281,6 +281,9 @@ button.reset:hover:not(:has(> *)) {
   display: flex;
   grid-gap: 1rem;
   margin-left: auto;
+}
+.header-logo{
+  width:200px;
 }
 
 /*
@@ -444,13 +447,14 @@ button.reset:hover:not(:has(> *)) {
 /* Centered Logo & Content */
 .content {
   position: absolute;
-  width: 100%;
+  width: 100vw;
   display: grid;
   justify-items: center;
   gap: 4vh;
+  top:5vh;
 }
 
-.logo {
+.landing-logo {
   width:clamp(250px,60%,600px);
 }
 
