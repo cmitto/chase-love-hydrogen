@@ -13,16 +13,28 @@
   font-family: "Ashven";
   src: url("/ASVHEN-Italic.woff2") format("woff2"),
        url("/ASVHEN-Italic.woff") format("woff");
-  font-weight:300;
+  font-weight:normal;
   font-style: normal;
   font-display: swap;
 }
-body{
-  font-family: "Ashven",sans-serif;
+@font-face{
+  font-family: "Turret Road";
+  src: url("/TurretRoad-Regular[1].woff") format("woff");
+  font-weight: normal;
+  font-size: normal;
+  font-display: swap;
 }
+body{
+  font-family: "ashven", sans-serif;
+}
+.main-content{
+ margin: 10dvh 15dvw;
+}
+
 
 img {
   border-radius: 4px;
+
 }
 /* ========== Persistent Spotify Player ========== */
 .spotify-container {
@@ -31,7 +43,7 @@ img {
   left: 2vh;
   z-index: 999;
   transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
-  width: 400px;
+  width: clamp(250px,350px,500px);
 }
 
 /* Hide iframe when button is clicked */
@@ -59,7 +71,6 @@ img {
   border: none;
   padding: 8px 12px;
   cursor: pointer;
-  font-size: 14px;
   border-radius: 5px;
   transition: background-color 0.3s ease, opacity 0.3s ease;
   opacity: 0; /* Initially invisible */
@@ -241,17 +252,21 @@ button.reset:hover:not(:has(> *)) {
 */
 .header {
   align-items: center;
-  background: #fff;
-  display: flex;
+  background: var(--color-light);
+  display: grid;
   height: var(--header-height);
   padding: 0 ;
   position: sticky;
   top: 0;
   z-index: 1;
+  grid-template-columns: auto 1fr auto;
+  padding: 4dvh 12dvw;
+  font-size: .9em;
+  grid-gap: 1dvw;
 }
 
 .header-menu-mobile-toggle {
-  @media (min-width: 48em) {
+  @media (min-width: 64rem) {
     display: none;
   }
 }
@@ -260,32 +275,76 @@ button.reset:hover:not(:has(> *)) {
   display: flex;
   flex-direction: column;
   grid-gap: 1rem;
+  padding-top: 1dvh;
 }
 
 .header-menu-desktop {
   display: none;
   grid-gap: 1rem;
-  @media (min-width: 45em) {
+  justify-content: space-evenly;
+  position:relative;
+  @media (min-width: 64rem) {
     display: flex;
     grid-gap: 1rem;
-    margin-left: 3rem;
   }
 }
 
 .header-menu-item {
   cursor: pointer;
 }
+.header-menu-item:hover {
+  text-decoration: none;
+}
+.header-menu-item::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-dark);
+  transform: scaleX(0);
+  transform-origin: bottom ;
+  transition: transform .25s ease;
+}
+
+.header-menu-item:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom;
+}
+
 
 .header-ctas {
   align-items: center;
   display: flex;
   grid-gap: 1rem;
   margin-left: auto;
+  position: relative;
 }
 .header-logo{
-  width:200px;
+  height: 100px;
 }
-
+.icon{
+  cursor:pointer;
+  transition: all 0.2s ease;
+}
+.icon:hover{
+  color:var(--color-primary);
+  scale: 1.2;
+}
+.cart-count {
+  color: var(--color-dark);
+  font-size: 14px;
+  border-radius: 25%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -10px;
+  right:-.25px;
+}
 /*
 * --------------------------------------------------
 * components/Footer
@@ -301,6 +360,7 @@ button.reset:hover:not(:has(> *)) {
   display: flex;
   grid-gap: 1rem;
   padding: 1rem;
+  justify-content: center;
 }
 
 .footer-menu a {
@@ -422,15 +482,16 @@ button.reset:hover:not(:has(> *)) {
 
 /* Full-Screen Background */
 .landing-page {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: wrap;
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   flex-direction: column;
+  z-index: 0;
+  background-color: var(--color-dark);;
 }
 
 /* Background Video */
@@ -438,8 +499,8 @@ button.reset:hover:not(:has(> *)) {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100dvh;
   object-fit: cover;
   z-index: -1;
 }
@@ -461,17 +522,15 @@ button.reset:hover:not(:has(> *)) {
 /* Navigation Buttons */
 .nav-buttons {
   display: grid;
-  gap: 2vh;
-  width: clamp(100px,150px,20vw);
+  gap: 2.9vh;
 }
 
 .nav-button {
   display: inline-block;
   background-color: var(--color-light);
   color: black;
-  padding: 4px 3px;
+  padding: 8px 5px;
   border-radius: 5px;
-  font-size: 18px;
   font-weight: bold;
   text-decoration: none;
   transition: all 0.2s ease-in;
@@ -522,6 +581,14 @@ button.reset:hover:not(:has(> *)) {
 .recommended-product img {
   height: auto;
 }
+.recommended-product{
+  transition: scale .2s ease-in-out;
+}
+.recommended-product:hover{
+  scale:1.1;
+  text-decoration: none;
+}
+
 
 /*
 * --------------------------------------------------
@@ -664,4 +731,14 @@ button.reset:hover:not(:has(> *)) {
 
 .account-logout {
   display: inline-block;
+}
+
+
+/*
+* --------------------------------------------------
+* routes/policy
+* --------------------------------------------------
+*/
+.policy {
+  font-family: turret road;
 }

@@ -2,6 +2,9 @@ import {Suspense} from 'react';
 import {Await, NavLink, useAsyncValue} from '@remix-run/react';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
+import { FiUser, FiSearch, FiShoppingCart } from "react-icons/fi";
+import { CgMenuHotdog } from 'react-icons/cg';
+
 
 /**
  * @param {HeaderProps}
@@ -11,7 +14,7 @@ export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
   return (
     <header className="header">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <img src="../../public/chaselovelogotext.png" alt="Logo" className="header-logo" />
+        <img src="/chaselovelogotext.png" alt="Logo" className="header-logo" />
       </NavLink>
       <HeaderMenu
         menu={menu}
@@ -67,7 +70,7 @@ export function HeaderMenu({
             : item.url;
         return (
           <NavLink
-            className="header-menu-item"
+            className="header-menu-item icon"
             end
             key={item.id}
             onClick={close}
@@ -92,9 +95,7 @@ function HeaderCtas({isLoggedIn, cart}) {
       <HeaderMenuMobileToggle />
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
+          <FiUser className='icon' size={24} />
         </Suspense>
       </NavLink>
       <SearchToggle />
@@ -110,7 +111,7 @@ function HeaderMenuMobileToggle() {
       className="header-menu-mobile-toggle reset"
       onClick={() => open('mobile')}
     >
-      <h3>☰</h3>
+      <CgMenuHotdog className='icon' size={24} />
     </button>
   );
 }
@@ -119,7 +120,7 @@ function SearchToggle() {
   const {open} = useAside();
   return (
     <button className="reset" onClick={() => open('search')}>
-      Search
+      <FiSearch className='icon' size={24} />
     </button>
   );
 }
@@ -145,7 +146,8 @@ function CartBadge({count}) {
         });
       }}
     >
-      Cart {count === null ? <span>&nbsp;</span> : count}
+      <FiShoppingCart className='icon' size={24}/>
+      {count !== null && count > 0 && <span className="cart-count">{count}</span>}
     </a>
   );
 }

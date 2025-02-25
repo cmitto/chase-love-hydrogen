@@ -157,6 +157,7 @@ export function Layout({children}) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
         <Meta />
@@ -185,7 +186,7 @@ export function Layout({children}) {
           <iframe 
             style={{borderRadius:"12px" }}
             src="https://open.spotify.com/embed/playlist/37i9dQZF1FbEwF6cQZ1SdI?utm_source=generator&theme=0"
-            width="60%"
+            width="100%"
             height="152"
             frameBorder="0"
             allowFullScreen=""

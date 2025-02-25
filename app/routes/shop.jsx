@@ -28,15 +28,18 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context}) {
-  const [{collections}] = await Promise.all([
+  const [featuredCollectionData] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY),
     // Add other queries here, so that they are loaded in parallel
   ]);
 
-  return {
-    featuredCollection: collections.nodes[0],
-  };
+  const { collectionByHandle, collections } = featuredCollectionData;
+
+  const featuredCollection = collectionByHandle?.metafield?.reference || collections.nodes[0] || null;
+
+  return { featuredCollection };
 }
+
 
 /**
  * Load data for rendering content below the fold. This data is deferred and will be
@@ -146,8 +149,19 @@ const FEATURED_COLLECTION_QUERY = `#graphql
     }
     handle
   }
+
   query FeaturedCollection($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
+    collectionByHandle(handle: "All") {
+      metafield(namespace: "custom", key: "featured_collection") {
+        value
+        reference {
+          ... on Collection {
+            ...FeaturedCollection
+          }
+        }
+      }
+    }
     collections(first: 1, sortKey: UPDATED_AT, reverse: true) {
       nodes {
         ...FeaturedCollection

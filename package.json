@@ -13,6 +13,7 @@
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
+    "@google-cloud/secret-manager": "^5.6.0",
     "@remix-run/react": "^2.15.3",
     "@remix-run/server-runtime": "^2.15.3",
     "@shopify/hydrogen": "2025.1.1",
@@ -21,7 +22,8 @@
     "graphql-tag": "^2.12.6",
     "isbot": "^5.1.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.4.0"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
