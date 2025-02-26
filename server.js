@@ -45,7 +45,8 @@ export default {
         "frame-src 'self' https://open.spotify.com;"+
         "style-src 'self' 'unsafe-inline' https://cdn.shopify.com; " +
         "script-src 'self' 'unsafe-inline' https://cdn.shopify.com;" +
-        "connect-src 'self' https://monorail-edge.shopifysvc.com https://cdn.shopify.com https://shopify.com;"
+        "connect-src 'self' https://monorail-edge.shopifysvc.com https://cdn.shopify.com https://shopify.com;"+
+        "img-src 'self' data: blob: https://cdn.shopify.com;"
       );
 
 

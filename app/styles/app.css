@@ -473,6 +473,124 @@ button.reset:hover:not(:has(> *)) {
   align-items: center;
   gap: 1rem;
 }
+/*
+* --------------------------------------------------
+* components/webcamCapture
+* --------------------------------------------------
+*/
+/* Webcam container */
+.webcam-container {
+  text-align: center;
+  display: grid;
+  grid-template-areas: 
+    "title title"
+    "camera camera"
+    "start-camera take-photo"
+  ;
+}
+.webcam-container h1{
+  grid-area: title;
+}
+/* Webcam box */
+.webcam-box {
+  width: 70dvw;
+  height: 68vh;
+  min-height: 40dvh;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-light);
+  margin: auto;
+  border-radius: 8px;
+  position:relative;
+  grid-area: camera;
+}
+/* Flash effect */
+.flash-overlay {
+  position: absolute;
+  width: 640px;
+  height: 480px;
+  background: white;
+  opacity: 0.8;
+  animation: flash 0.2s ease-in-out;
+}
+@keyframes flash {
+  0% { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+/* Webcam feed */
+.webcam-feed {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* Placeholder when camera is off */
+.webcam-placeholder {
+}
+.webcam-toggle-btn{
+  grid-area: start-camera;
+
+}
+.photo-btn{
+  grid-area: take-photo;
+}
+/* Toggle button */
+.webcam-toggle-btn, .photo-btn{
+  font-family: ashven, sans-serif;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  cursor: pointer;
+  border-radius: 5px;
+  transition: scale 0.3s ease;
+  width:80%;
+  justify-self: center;
+}
+
+.webcam-toggle-btn:hover, .photo-btn:hover {
+  scale: 1.1;
+}
+.photo-btn:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+/* Photo gallery */
+.photo-gallery {
+  display: grid;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.photo-item {
+  position: relative;
+  margin: 5px;
+}
+
+.photo-item img {
+  width: 20vw;
+  height: auto;
+  border-radius: 5px;
+  border: 2px solid white;
+}
+
+/* Delete button */
+.delete-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: var(--color-primary);
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
 
 /*
 * --------------------------------------------------

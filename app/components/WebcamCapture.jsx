@@ -1,27 +1,88 @@
 import { useState, useEffect, useRef } from "react";
+import { FiX } from "react-icons/fi";
+import '../styles/app.css';
 
 export default function WebcamCapture() {
   const webcamRef = useRef(null);
-  const [Webcam, setWebcam] = useState(null);
-  const [error, setError] = useState(null);
+  const [Webcam,setWebcam] = useState(null);
+  const [isCameraOn, setIsCameraOn] = useState(false);
+  const [photos, setPhotos] = useState([]);
+  const [flash, setFlash] = useState(false);
 
-  useEffect(() => {
+
+ useEffect(() => {
+    // Dynamically import react-webcam on the client side
     import("react-webcam")
       .then((mod) => {
-        console.log("✅ Webcam module loaded:", mod);
         setWebcam(() => mod.default);
       })
-      .catch((err) => {
-        console.error("❌ Failed to load react-webcam:", err);
-        setError("Failed to load webcam.");
-      });
+      .catch((err) => console.error("Failed to load react-webcam:", err));
   }, []);
 
+
+  const toggleCamera = () => {
+    setIsCameraOn((prev) => !prev);
+  };
+
+  const takePhoto = () =>{
+    if (photos.length >= 20) return;
+
+    if (webcamRef.current){
+      setFlash(true);
+      setTimeout(() => setFlash(false),200);
+      
+      const imageSrc = webcamRef.current.getScreenshot();
+      if (imageSrc){
+        setPhotos((prev) => [...prev, imageSrc]);
+        console.log("Photo captured:",imageSrc);
+      }else{
+        console.log("Failed to capture image");
+      }
+      
+    }
+  }
+
+  const deletePhoto = (index) => {
+    setPhotos((prev) => prev.filter((_,i) => i !== index));
+  }
+
+
   return (
-    <div>
-      <h1>Simple Webcam Preview</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {Webcam ? <Webcam ref={webcamRef} /> : <p>Loading Webcam...</p>}
+    <div className="webcam-container">
+      <h1>Club Cam</h1>
+
+      {flash && <div className="flash-overlay"></div>}
+
+      {/* Webcam Feed or Placeholder */}
+      <div className="webcam-box">
+        {isCameraOn && Webcam? (
+          <Webcam ref={webcamRef} className="webcam-feed" screenshotFormat="image/png" />
+        ) : (
+          <p className="webcam-placeholder">Camera is off</p>
+        )}
+      </div>
+
+      {/* Start/Stop Button */}
+      <button onClick={toggleCamera} className="webcam-toggle-btn">
+        {isCameraOn ? "Stop Camera" : "Start Camera"}
+      </button>
+
+      {/* Take Photo Button (Disabled if limit reached) */}
+      <button onClick={takePhoto} className="photo-btn" disabled={photos.length >= 20}>
+        {photos.length >= 20 ? "Photo Limit Reached" : "Take Photo"}
+      </button>
+
+      {/* Display Captured Photos */}
+      {photos.length > 0 && (
+        <div className="photo-gallery">
+          {photos.map((photo, index) => (
+            <div key={index} className="photo-item">
+              <img src={photo} alt={`Snapshot ${index + 1}`} />
+              <button className="delete-btn" onClick={() => deletePhoto(index)}><FiX></FiX></button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -20,6 +20,12 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  server:{
+    allowedHosts: ['.ngrok-free.app'],
+    headers: {
+      'Content-Security-Policy': "default-src 'self' https://cdn.shopify.com https://shopify.com http://localhost:*; img-src 'self' data: blob: https://cdn.shopify.com;",
+    },
+  },
   build: {
     // Allow a strict Content-Security-Policy
     // withtout inlining assets as base64:
