@@ -2,6 +2,10 @@ import {useLoaderData, Link} from '@remix-run/react';
 import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 
+export const meta = () =>{
+  return [{title: 'Chase Love Club | Collections'}];
+}
+
 /**
  * @param {LoaderFunctionArgs} args
  */

@@ -29,7 +29,7 @@ export default function WebcamCapture() {
 
     if (webcamRef.current){
       setFlash(true);
-      setTimeout(() => setFlash(false),200);
+      setTimeout(() => setFlash(false),1000);
       
       const imageSrc = webcamRef.current.getScreenshot();
       if (imageSrc){
@@ -51,10 +51,16 @@ export default function WebcamCapture() {
     <div className="webcam-container">
       <h1>Club Cam</h1>
 
-      {flash && <div className="flash-overlay"></div>}
+      
 
       {/* Webcam Feed or Placeholder */}
       <div className="webcam-box">
+        
+        {flash && 
+          <div className="flash-overlay">
+            <img src="/chaselovelogotext.png" alt="logo" className="flash-logo"></img>
+          </div>}
+
         {isCameraOn && Webcam? (
           <Webcam ref={webcamRef} className="webcam-feed" screenshotFormat="image/png" />
         ) : (
@@ -78,7 +84,7 @@ export default function WebcamCapture() {
           {photos.map((photo, index) => (
             <div key={index} className="photo-item">
               <img src={photo} alt={`Snapshot ${index + 1}`} />
-              <button className="delete-btn" onClick={() => deletePhoto(index)}><FiX></FiX></button>
+              <button className="delete-btn" onClick={() => deletePhoto(index)}><FiX className="x-icon"></FiX></button>
             </div>
           ))}
         </div>

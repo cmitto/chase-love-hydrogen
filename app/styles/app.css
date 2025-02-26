@@ -510,14 +510,19 @@ button.reset:hover:not(:has(> *)) {
 /* Flash effect */
 .flash-overlay {
   position: absolute;
-  width: 640px;
-  height: 480px;
-  background: white;
-  opacity: 0.8;
-  animation: flash 0.2s ease-in-out;
+  inset: 0;
+  background: var(--color-light);
+  opacity: 1;
+  animation: flash 1s ease-in-out;
+  display: flex;
+  justify-content: center;
+}
+.flash-logo{
+  width:60%;
 }
 @keyframes flash {
-  0% { opacity: 0.8; }
+  0% { opacity: 0; }
+  10% {opacity: 1;}
   100% { opacity: 0; }
 }
 /* Webcam feed */
@@ -587,15 +592,26 @@ button.reset:hover:not(:has(> *)) {
 /* Delete button */
 .delete-btn {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top:10px;
+  right:10px;
   color: var(--color-primary);
   border: none;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 14px;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
+  background: var(--color-light);
+  margin: 0;
+  padding: 0;
+  transition: scale .2s ease;
+}
+.x-icon{
+  position: relative;
+  top:2px;
+  scale:2;
+}
+.delete-btn:active{
+  scale:0.6;
 }
 
 /*

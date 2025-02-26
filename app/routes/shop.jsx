@@ -6,7 +6,7 @@ import {Image, Money} from '@shopify/hydrogen';
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Chase Love Club | Home'}];
+  return [{title: 'Chase Love Club | Shop'}];
 };
 
 /**
