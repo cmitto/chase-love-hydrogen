@@ -486,6 +486,7 @@ button.reset:hover:not(:has(> *)) {
     "title title"
     "camera camera"
     "start-camera take-photo"
+    "image image"
   ;
 }
 .webcam-container h1{
@@ -563,7 +564,11 @@ button.reset:hover:not(:has(> *)) {
 .photo-gallery {
   display: grid;
   justify-content: center;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+  margin-top: 10vh;
+  grid-area: image;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .photo-item {
@@ -572,10 +577,11 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .photo-item img {
-  width: 20vw;
+  width: 100%;
   height: auto;
   border-radius: 5px;
   border: 2px solid white;
+  object-fit: cover;
 }
 
 /* Delete button */
